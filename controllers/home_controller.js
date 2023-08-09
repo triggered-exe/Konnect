@@ -1,3 +1,7 @@
 module.exports.home = function (req,res){
-    res.send("<h1>welcome to Konnect<h1>");
+    console.log(req.cookies)
+    res.cookie("user_id", 121)
+    return res.render("home",{
+        title: "Home"
+    });
 }

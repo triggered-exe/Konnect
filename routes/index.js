@@ -1,10 +1,14 @@
 const express = require("express");
 const router = express.Router();
 
-//returns the exports object
-let home_controller = require("../controllers/home_controller.js");
-console.log("router is running");
 
-router.get("/",home_controller.home);
+//returns the exports object
+let homeController = require("../controllers/home_controller.js");
+
+router.get("/",homeController.home);
+router.use("/users", require("./users.js"));
+router.use("/post", require("./post.js"));
+
+console.log("router is running");
 
 module.exports = router;
