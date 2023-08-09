@@ -33,8 +33,9 @@ module.exports = {
     },
 
     createUser: function(req,res){
+        console.log(req.body)
         User.findOne({email: req.body.email}).then((data)=>{
-            console.log(data);
+            //handle user found
             if(!data){
                 User.create(req.body).then((data)=>{
                     console.log(data);
@@ -43,12 +44,40 @@ module.exports = {
                     console.log(error);
                     return res.redirect('back');
                 })
+                 //handle user not found
             }else{
                 console.log("email already registered");
                 return res.redirect('back');
             }
             
        })
+    },
+
+    createSession: (req,res)=>{
+
+        User.findOne({email: req.body.email}).then((data)=>{
+            console.log(req.body)
+           //handle user not found
+           if(!data){
+             console.log("email doesnt exist")
+              return res.redirect('back');
+            }else{
+                console.log(data)
+                //handle password mismatch
+                if(data.password != req.body.password){
+                    console.log("wrong password");
+                    return res.redirect('back');
+                    //handle passwor match
+               }else{
+                res.cookie("data-id", data._id);
+                console.log("successfully login")
+                 return res.render('profile',{title: "user profile"});
+               }
+          }
+        }).catch((error)=>{
+            console.log(error);
+            return res.redirect('back');
+        })
     }
 
 }
