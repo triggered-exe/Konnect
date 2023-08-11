@@ -16,9 +16,23 @@
 const User = require("../models/user")
 module.exports = {
     profile: function (req, res) {
-        res.render("profile", {
-            title: "profile"
-        })
+         if(req.cookies.user_id){
+             //id exist
+             User.findOne({_id: req.cookies.user_id}).then((data)=>{
+                if(data){
+                    return res.render("profile",{
+                name: data.name, email: data.email
+                })
+                }else{
+                    console.log("user doesnt exist in database")
+                }
+            })
+           
+        }else{
+            console.log("user not logged in");
+            res.redirect("back");
+            return;
+        }
     },
     signin: function (req, res) {
         res.render("user_sign_in.ejs", {
@@ -57,6 +71,7 @@ module.exports = {
 
         User.findOne({email: req.body.email}).then((data)=>{
             console.log(req.body)
+            console.log(data)
            //handle user not found
            if(!data){
              console.log("email doesnt exist")
@@ -69,9 +84,17 @@ module.exports = {
                     return res.redirect('back');
                     //handle passwor match
                }else{
-                res.cookie("data-id", data._id);
+                res.cookie("user_id", data._id);
                 console.log("successfully login")
-                 return res.render('profile',{title: "user profile"});
+                User.findOne({_id: data._id}).then((data)=>{
+                    if(data){
+                        return res.render("profile",{
+                    name: data.name, email: data.email
+                    })
+                    }else{
+                        console.log("user doesnt exist in database")
+                    }
+                })
                }
           }
         }).catch((error)=>{
@@ -80,4 +103,8 @@ module.exports = {
         })
     }
 
+}
+
+module.exports.createSession =  function(req, res){
+    return res.redirect("/");
 }
