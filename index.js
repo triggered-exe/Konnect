@@ -6,7 +6,7 @@ const db = require("./config/mongoose.js");
 const session = require("express-session");
 const passport = require("passport");
 const passportLocal = require("./config/passport-local-strategy.js");
-
+const MongoStore = require("connect-mongo")(session);
 
 app.use(cookieParser());
 // for json
@@ -38,6 +38,8 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(passport.setAuthenticatedUser);
 
 //use express  router
 app.use("/", require("./routes/index.js"));
