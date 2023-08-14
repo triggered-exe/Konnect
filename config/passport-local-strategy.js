@@ -18,6 +18,9 @@ function(email, password, done){
                 console.log("correct password");
                 return done(null, user);
             }
+            //email doesnt exist
+        }else{
+            return done(null, false)
         }
     })
     .catch((error)=>{
@@ -28,7 +31,7 @@ function(email, password, done){
 ))
 
 
-//serializing the user to decide which key is to be kept in the cookies
+//serializing the user to decide which key is to be kept in the session cookies
 passport.serializeUser(function(user, done){
     console.log("serializing user");
     done(null,user.id);

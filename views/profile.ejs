@@ -1,7 +1,10 @@
-    <link rel="stylesheet" href="/css/profile.css">
-    <h1>
-      this is  profile page of <%= name %>
-    </h1>
-    <h1>
-      Email ID : <%= email %>
-    </h1>
+<link rel="stylesheet" href="/css/profile.css" />
+
+<h1>
+  <% if(user) {  %>
+  <li>
+    <h1>this is profile page of : <%= user.name %></h1>
+  </li>
+  <li><h1>Email ID : <%= user.email %></h1></li>
+  <% } %>
+</h1>

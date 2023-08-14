@@ -40,17 +40,18 @@ app.use(session({
     cookie: {
         maxAge: 1000 * 60 * 100
     },
+    //to store session in the mongodb database instead server memory
     store: MongoStore.create(
-            {
-                mongoUrl: 'mongodb://127.0.0.1/Konnect_development',
-                autoRemove: "disabled"
-            },
-            function(error) {
-                console.log(error || `connect-mongodb setup ok`);
-            }
+        {
+            mongoUrl: 'mongodb://127.0.0.1/Konnect_development',
+            autoRemove: "disabled"
+        },
+        function (error) {
+            console.log(error || `connect-mongodb setup ok`);
+        }
     )
 
-    }))
+}))
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -59,11 +60,6 @@ app.use(passport.setAuthenticatedUser);
 
 //use express  router
 app.use("/", require("./routes/index.js"));
-
-
-
-
-
 
 
 app.listen(port, (err) => {

@@ -2,14 +2,11 @@ const User = require("../models/user")
 
 module.exports = {
     profile: function (req, res) {
-        res.render("profile.ejs",{
-            name: req.user.name,
-            email: req.user.email
-        });
+        res.render("profile.ejs");
         return;
     },
     signin: function (req, res) {
-        if(req.isAuthenticated()){
+        if (req.isAuthenticated()) {
             return res.redirect('/users/profile');
         }
         return res.render("user_sign_in.ejs", {
@@ -18,16 +15,15 @@ module.exports = {
     },
 
     signup: function (req, res) {
-         if(req.isAuthenticated()){
-             return res.redirect('/users/profile');
-         }
-         return res.render("user_sign_up.ejs", {
+        if (req.isAuthenticated()) {
+            return res.redirect('/users/profile');
+        }
+        return res.render("user_sign_up.ejs", {
             title: "signup"
         });
     },
 
     createUser: function (req, res) {
-        console.log(req.body)
         User.findOne({ email: req.body.email }).then((data) => {
             //handle user found
             if (!data) {
@@ -45,7 +41,15 @@ module.exports = {
             }
         })
     },
-    createSession: function (req, res) {
+    createSession: function (req, res) { 
         return res.redirect("/users/profile");
+    },
+    destroySession: function (req, res) {
+        req.logout(function(err) {
+            if (err) { return next(err); }
+            res.redirect('/');
+          });
     }
+
+
 }
