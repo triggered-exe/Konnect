@@ -1,4 +1,7 @@
 <header>
+    <div>
+        <a href="/">konnect</a>
+    </div>
     <% if(locals.user) { %>
     <li><%= user.name %></li>
     <li>
@@ -6,5 +9,6 @@
     </li>
     <% } else { %>
         <li><a href="/users/sign-in">SIGN-IN</a></li>
+        <li><a href="/users/sign-up">SIGN-UP</a></li>
         <% } %>
 </header>

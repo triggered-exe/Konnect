@@ -16,7 +16,7 @@
   "description": "A social media web application",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js "
   },
   "keywords": [
     "social"

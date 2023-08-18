@@ -1,4 +1,8 @@
 body{
     margin: 0;
     text-align: center;
+    background-color: rgba(161, 99, 99, 0.938);
+}
+main{
+    height: 100vh;
 }
