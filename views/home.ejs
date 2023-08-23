@@ -1,15 +1,46 @@
- <link rel="stylesheet" href="/css/home.css">
-    <h1>
-      Konnect <%= title %>
-    </h1>
+<link rel="stylesheet" href="/css/home.css" />
+<h1>Konnect</h1>
 
-    <section>
-      <form action="/post/create" method="post">
-        <textarea name="content" id="" cols="25" rows="3" required></textarea>
-        <input type="submit" name="submi"value="post">
+<section>
+  <% if(locals.user){ %>
+  <form action="/post/create" method="post">
+    <textarea name="content" id="" cols="25" rows="3" required></textarea>
+    <input type="submit" name="submi" value="post" />
+  </form>
+  <% } %>
+  <div id="posts-list-container">
+    <ul>
+      <% for(post of posts){ %>
+      <li><%= post.content %></li>
+      <small><%= post.user.name %></small>
+      <small>
+        <!-- showing delete button only to signed in user and if the post is made by the signed in user -->
+        <% if(locals.user && locals.user.id == post.user.id){ %>
+          <a href="/post/delete/<%= post.id %>">X</a>
+          <% } %>
+      </small>
+      <!-- for adding comments -->
+      <% if(locals.user){%>
+      <form method="post" action="/comment/create">
+        <input type="text" name="content" placeholder="comment here" required />
+        <input type="hidden" name="post_id" value="<%= post.id %>" />
+        <input type="submit" value="add comment" />
       </form>
-    </section>
-    
-    
+      <% }%>
+      <!-- for showing comments -->
+      <div class="show_comments">
+        <% post.comments.forEach((comment)=>{%>
+        <div>
+          <span><h7><%= comment.content %></h7></span>
+          <span> <h7> by <%= comment.user.name %></h7></span>
+          <span> 
+            <h7><a href="/comment/delete/<%= comment.id %>">X</a></h7>
+          </span>
+          <% }) %>
+        </div>
+      </div>
 
-
+      <% } %>
+    </ul>
+  </div>
+</section>
