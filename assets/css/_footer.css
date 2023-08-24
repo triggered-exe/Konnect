@@ -1,9 +1,23 @@
-footer{
+#layout-footer {
+    position: sticky;
+    bottom: 0px;
+    width: 100%;
+    color: white;
+    background: grey;
+    padding: 5px 10px;
     display: flex;
-    width: 100vw;
-    height: 25px;
-    justify-content: space-around;
-    align-items: center;
-    background-color: rgba(97, 99, 91, 0.692);
-    
+    justify-content: flex-start;
+}
+
+#layout-footer a {
+    color: white;
+    text-decoration: none;
+}
+
+#layout-footer .footer-nav ul {
+    display: flex;
+    list-style: none;
+}
+#layout-footer .footer-nav li {
+    padding-left: 10px;
 }

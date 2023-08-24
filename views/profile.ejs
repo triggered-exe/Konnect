@@ -1,10 +1,12 @@
 <link rel="stylesheet" href="/css/profile.css" />
 
-<h1>
-  <% if(user) {  %>
-  <li>
-    <h1>Name: <%= user.name %></h1>
-  </li>
-  <li><h1>Email ID : <%= user.email %></h1></li>
-  <% } %>
-</h1>
+<% if(locals.user.id == profile_user.id) {%>
+<form action="/users/update/<%= profile_user.id %>" method="post">
+  <input type="text" name="name" value="<%= profile_user.name %>" required />
+  <input type="email" name="email" value="<%= profile_user.email %>" required />
+  <input type="submit" value="update" />
+</form>
+
+<%} else {%>
+<h1>Name: <%= profile_user.name %></h1>
+<h1>Email ID : <%= profile_user.email %> <% } %></h1>

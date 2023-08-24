@@ -1,0 +1,11 @@
+<!-- for showing comments -->
+   <li>
+    <span><%= comment.content %>
+     by <%= comment.user.name %>
+    
+        <!-- show delete button only to user who made the comment -->
+       <% if(locals.user && locals.user.id == comment.user.id){ %>
+        <a href="/comment/delete/<%= comment.id %>">X</a>
+        <% } %>
+    </span>
+   </li>

@@ -7,7 +7,8 @@ const session = require("express-session");
 const passport = require("passport");
 const passportLocal = require("./config/passport-local-strategy.js");
 const MongoStore = require("connect-mongo");
-// const sassMiddleware = require("node-sass-middleware");
+const flash = require("connect-flash");
+const customMware = require("./config/middleware.js");
 
 app.use(cookieParser());
 // for json
@@ -58,6 +59,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(passport.setAuthenticatedUser);
+
+// use flash as middleware
+app.use(flash());
+//passing the message to the fash usind middleware
+app.use(customMware.setFlash);
 
 //use express  router
 app.use("/", require("./routes/index.js"));

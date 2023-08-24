@@ -1,4 +1,5 @@
 const Post = require("../models/post");
+const User = require("../models/user");
 
 module.exports.home = function (req, res) {
    //populating ther user fiels with the object id it was referenced to
@@ -13,10 +14,16 @@ module.exports.home = function (req, res) {
       })
       .exec()
       .then((posts) => {
-         //return an object 
-         return res.render("home", {
-            posts: posts
-         });
+         //find all the user and return them
+         User.find({})
+            .then((users) => {
+               //return an object 
+               return res.render("home", {
+                  posts: posts,
+                  all_users: users
+               });
+            
+            })
       })
 
 } 
