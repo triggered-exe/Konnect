@@ -5,13 +5,15 @@
   <section id="feed-post">
     <h4>Posts</h4>
     <% if(locals.user){ %>
-    <form action="/post/create" method="post">
-      <textarea name="content" id="" cols="25" rows="3" required></textarea>
-      <input type="submit" name="submi" value="post" />
+
+    <form action="/post/create" id="post-create-form" method="post">
+      <textarea name="content" id="post-content" cols="25" rows="3" required></textarea>
+      <input id="post-create-button"type="submit" name="submit" value="post" />
     </form>
+
     <% } %>
     <div id="posts-list-container">
-      <ul>
+      <ul id="post-list">
         <!-- showing all the post  -->
         <% for(post of posts){ %> <%- include(`_post.ejs`) %> <% } %>
       </ul>
@@ -26,7 +28,8 @@
     </p>
     <% } %>
   </section>
-
-
+  <script src="/js/home_post.js"></script>
+  <script src="/js/home_comment.js"></script>
+      
 </div>
 

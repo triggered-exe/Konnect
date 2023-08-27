@@ -1,23 +1,23 @@
-<li>
+<li id="post-<%= post.id %>">
   <%= post.content %>
   <small>posted by <%= post.user.name %></small>
 
   <!-- showing delete button only to signed in user and if the post is made by the signed in user -->
   <% if(locals.user && locals.user.id == post.user.id){ %>
-  <a href="/post/delete/<%= post.id %>">X</a>
+  <a class="post-delete-button" id="<%= post.id %>" href="/post/delete/<%= post.id %>">X</a>
   <% } %>
 
   <!-- for adding comments -->
   <% if(locals.user){%>
-  <form method="post" action="/comment/create">
+  <form method="post" class="comment-add-form" id="comment-add-form-<%= post.id %>" action="/comment/create">
     <input type="text" name="content" placeholder="comment here" required />
     <input type="hidden" name="post_id" value="<%= post.id %>" />
     <input type="submit" value="add comment" />
   </form>
   <% }%>
 
-  <div class="show_comments">
-    <ul>
+  <div class="comments-container" >
+    <ul id="postId-comment-<%= post.id %>" >
       <% for(comment of post.comments){%> 
         <%- include(`_comments.ejs`) %> 
         <% }%>

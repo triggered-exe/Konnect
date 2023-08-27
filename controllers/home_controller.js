@@ -10,14 +10,15 @@ module.exports.home = function (req, res) {
          path: "comments",
          populate: {
             path: "user"
-         }
+         },
+         sort: {createdAt: -1}
       })
-      .exec()
+      .sort("-createdAt")
       .then((posts) => {
          //find all the user and return them
          User.find({})
             .then((users) => {
-               //return an object 
+               //return an array of objects posts
                return res.render("home", {
                   posts: posts,
                   all_users: users
