@@ -14,3 +14,22 @@
     border-left: 1px solid white;
     background-color: #cbcbcb;
 }
+/* styling the post creation form */
+#post-create-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#post-create-form textarea{
+    resize: none;
+    border: none;
+}
+#post-create-form img{
+    height: 51px;
+    width: 51px;
+}
+#post-create-form input{
+    height: 51px;
+    width: 51px;
+    border: none;
+}

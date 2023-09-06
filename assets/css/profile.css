@@ -1,5 +1,14 @@
-body{
-    background-color: rgba(139, 79, 145, 0.938);
-    list-style-type: none;
-    height: 100%;
+/* form to update the user info */
+.display-profile form{
+    display: flex;
+    margin: 10px;
+    align-items: center;
+    justify-content: center;
+}
+/* user-avatar image */
+#user-avatar{
+    width: 150px;
+    height:150px;
+    margin-left: 40vw;
+    padding: 20px
 }

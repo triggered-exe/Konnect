@@ -1,4 +1,6 @@
 const User = require("../models/user");
+const path = require("path");
+const fs = require("fs");
 
 module.exports = {
   profile: function (req, res) {
@@ -53,13 +55,24 @@ module.exports = {
       }
     });
   },
-  update: function (req, res) {
+  update: function async (req, res) {
+    console.log(req.file)
     if (req.user.id == req.params.id) {
-      User.findByIdAndUpdate(req.params.id, {
-        name: req.body.name,
-        email: req.body.email,
-      })
-        .then((data) => {
+      User.findById(req.params.id)
+        .then(async (user) => {
+            if(req.file){
+              // if user.avatar exist delete the avatar from file storage
+              if(fs.existsSync(path.join(__dirname, '..', user.avatar))){
+                // File exists, proceed with deletion
+                fs.unlinkSync(path.join(__dirname, '..', user.avatar));
+              }
+                user.avatar = req.file.path;
+            }
+            user.name = req.body.name;
+            user.email = req.body.email;
+
+            await user.save();
+          
           console.log("user updated successfully");
           return res.redirect("back");
         })

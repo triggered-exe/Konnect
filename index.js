@@ -6,6 +6,8 @@ const db = require("./config/mongoose.js");
 const session = require("express-session");
 const passport = require("passport");
 const passportLocal = require("./config/passport-local-strategy.js");
+const passportJWT = require("./config/passport-jwt-strategy.js");
+const passportGoogle = require("./config/passport-google-oauth2-strategy.js");
 const MongoStore = require("connect-mongo");
 const flash = require("connect-flash");
 const customMware = require("./config/middleware.js");
@@ -22,6 +24,11 @@ const expressLayouts = require("express-ejs-layouts");
 app.use(expressLayouts);
 //including static files
 app.use(express.static("./assets"));
+app.use("/uploads", express.static("./uploads"));
+app.use(express.static('uploads'));
+// app.use("/uploads", express.static(__dirname + "/uploads"));
+// app.use("/uploads", express.static("./uploads"));
+// app.use("/users", express.static("./uploads/"));
 
 // extracting styles and scripts from sub pages to layout
 app.set("layout extractStyles", true);
