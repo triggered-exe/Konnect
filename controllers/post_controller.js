@@ -1,18 +1,20 @@
 const Post = require("../models/post.js");
 const Comment = require("../models/comment.js");
+const Likes = require("../models/likes.js");
 
 module.exports.create = function (req, res) {
     console.log(req.body)
     Post.create({
         content: req.body.content,
-        user: req.user._id
+        user: req.user._id,
+        likes: []
     })
     .then(async (newPost) => {
         // req.flash("success", "Post added successfully");
 
         console.log("post added successfully")
         // Populate the user field
-       const populatedPost = await Post.findById(newPost._id).populate('user');
+        const populatedPost = await Post.findById(newPost._id).populate('user');
         res.status(201).json(populatedPost);
     })
     .catch((error)=>{
@@ -26,9 +28,15 @@ module.exports.create = function (req, res) {
 module.exports.delete = async function (req, res) {
     console.log(req.params.id)
     Post.findByIdAndRemove(req.params.id)
-        .then((post) => {
+        .then(async (post) => {
             //check whether the post id match signed in user id or not
             if (post.user == req.user.id) {
+                // delete the likes on the comment
+                await Likes.deleteMany({ likeable: req.params.id , onModel: "Post"});
+                post.comments.forEach(async (commentId) => {
+                    await Likes.deleteMany({ likeable: commentId , onModel: "Comment"});
+                })
+                console.log("likes of the post and comments deleted")
                 //deleting all the comments associated with the post
                 Comment.deleteMany({ post: req.params.id })
                     .then(async (post) => {

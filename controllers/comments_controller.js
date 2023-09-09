@@ -1,5 +1,6 @@
 const Comment = require("../models/comment.js");
 const Post = require("../models/post.js");
+const Likes = require("../models/likes.js");
 const commentMailer = require("../mailers/comments_mailer.js");
 const queue = require("../config/kue.js")
 const commentEmailWorker = require("../workers/comment_email_worker.js");
@@ -14,6 +15,7 @@ module.exports.create = function (req, res) {
         content: req.body.content,
         post: req.body.post_id,
         user: req.user._id,
+        likes: []
       })
         .then((data) => {
           //adding comment to post comment array
@@ -47,11 +49,14 @@ module.exports.create = function (req, res) {
 };
 module.exports.delete = function (req, res) {
   Comment.findByIdAndDelete(req.params.id)
-    .then((comment) => {
+    .then(async (comment) => {
       console.log("comment deleted successfully");
+      // delete all likes associated with the comment
+      await Likes.deleteMany({likeable: comment.id, onModel: "Comment" } );
+      console.log("likes of the comments deleted")
       const postId = comment.post;
       Post.findByIdAndUpdate(postId, {
-        $pull: { comments: req.params.id },
+        $pull: { comments: req.params.id, onModel: "Comment" },
       }).then((post) => {
         // req.flash("success", "Comment deleted successfully");
         console.log("comment id deleted successfully from post");

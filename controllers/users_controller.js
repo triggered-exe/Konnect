@@ -1,13 +1,29 @@
 const User = require("../models/user");
+const Friendship = require("../models/friendship")
 const path = require("path");
 const fs = require("fs");
+
 
 module.exports = {
   profile: function (req, res) {
     User.findById(req.params.id)
-      .then((user) => {
+      .then(async (user) => {
+        let isFriend = false;
         if (user) {
-          return res.render("profile.ejs", { profile_user: user });
+         // check if friensship exist 
+         console.log( req.user.id)
+         console.log(req.params.id)
+         const friendship = await Friendship.findOne({
+          $or: [
+            { from_user: req.user.id, to_user: user.id },
+            { from_user: user.id, to_user:  req.user.id },
+          ],
+        }).exec();
+        if(friendship){
+          console.log("friendship exist : " + isFriend)
+          isFriend = true; 
+        }
+          return res.render("profile.ejs", { profile_user: user, isFriend: isFriend });
         } else {
           return res.redirect("back");
         }
@@ -36,6 +52,7 @@ module.exports = {
   },
 
   createUser: function (req, res) {
+    
     User.findOne({ email: req.body.email }).then((data) => {
       //handle user found
       if (!data) {
@@ -56,18 +73,20 @@ module.exports = {
     });
   },
   update: function async (req, res) {
+    console.log("inside update")
     console.log(req.file)
     if (req.user.id == req.params.id) {
       User.findById(req.params.id)
         .then(async (user) => {
             if(req.file){
               // if user.avatar exist delete the avatar from file storage
-              if(fs.existsSync(path.join(__dirname, '..', user.avatar))){
+              if(user.avatar && fs.existsSync(path.join(__dirname, '..', user.avatar))){
                 // File exists, proceed with deletion
                 fs.unlinkSync(path.join(__dirname, '..', user.avatar));
               }
                 user.avatar = req.file.path;
             }
+            console.log("inside update")
             user.name = req.body.name;
             user.email = req.body.email;
 

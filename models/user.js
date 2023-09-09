@@ -12,18 +12,22 @@ const userSchema = new mongoose.Schema({
     password:{
         type: String,
         required: true
-    },
+    }, 
     name:{
         type: String,
         required: true,
     },
     avatar:{
         type: String
-    }
-},
-{
-    timestamps: true
-})
+    },
+    friends: [
+      {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Friendship",
+      },
+  ],
+  }, {timestamps: true}
+)
 
 
 

@@ -5,7 +5,7 @@
   
   <section id="feed-post">
     <% if(locals.user){ %>
-
+ 
     <form action="/post/create" id="post-create-form" method="post">
       <img src="<%= user.avatar %>" alt="avatar">
       <textarea name="content" id="post-content" cols="35" rows="3" placeholder="type your post here....." required></textarea>
@@ -31,6 +31,8 @@
   </section>
   <script src="/js/home_post.js"></script>
   <script src="/js/home_comment.js"></script>
+  <script src="/js/likes.js"></script>
+  
       
 </div>
 
