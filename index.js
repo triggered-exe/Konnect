@@ -1,6 +1,8 @@
 const express = require("express");
-
 const app = express();
+const env = require("./config/environment");
+const port = env.PORT || 8000;
+const logger = require("./logger.js")
 const cookieParser = require('cookie-parser');
 const db = require("./config/mongoose.js");
 const session = require("express-session");
@@ -8,9 +10,38 @@ const passport = require("passport");
 const passportLocal = require("./config/passport-local-strategy.js");
 const passportJWT = require("./config/passport-jwt-strategy.js");
 const passportGoogle = require("./config/passport-google-oauth2-strategy.js");
+const path = require("path");
+
+
 const MongoStore = require("connect-mongo");
 const flash = require("connect-flash");
 const customMware = require("./config/middleware.js");
+
+
+// setup the chat server to be used with socket.io
+const http = require("http");
+const chatServer = http.createServer(app);
+const chatSockets = require('./config/chat_sockets').chatSockets(chatServer);
+chatServer.listen(5000);
+console.log('chat server is listening on port 5000');
+
+
+
+// Custom middleware to log requests for the home page
+app.use('/', (req, res, next) => {
+    // Check if the request URL does not start with '/css/', '/js/', or '/uploads/'
+    if (!req.url.startsWith('/css/') && !req.url.startsWith('/js/') && !req.url.startsWith('/uploads/')) {
+      const user = req.user; // Assuming user information is stored in req.user
+      const userAgent = req.headers['user-agent'];
+      const ipAddress = req.ip;
+  
+      // Log request with user information, user agent, and IP address
+      logger.info(`[${new Date().toLocaleString()}] ${req.method} ${req.url} - User: ${user ? user.username : 'Anonymous'} - User Agent: ${userAgent} - IP Address: ${ipAddress}`);
+    }
+    next();
+  })
+
+
 
 app.use(cookieParser());
 // for json
@@ -18,17 +49,14 @@ app.use(express.json())
 // for form data
 app.use(express.urlencoded({ extended: true }))
 
-const port = 8000;
+
 //using layouts 
 const expressLayouts = require("express-ejs-layouts");
 app.use(expressLayouts);
 //including static files
-app.use(express.static("./assets"));
+app.use(express.static(env.assets_path));
 app.use("/uploads", express.static("./uploads"));
-app.use(express.static('uploads'));
-// app.use("/uploads", express.static(__dirname + "/uploads"));
-// app.use("/uploads", express.static("./uploads"));
-// app.use("/users", express.static("./uploads/"));
+
 
 // extracting styles and scripts from sub pages to layout
 app.set("layout extractStyles", true);
@@ -43,7 +71,7 @@ app.set("views", "./views");
 app.use(session({
     name: "Konnect",
     //change me
-    secret: "change",
+    secret: env.session_cookie_key,
     saveUninitialized: false,
     resave: false,
     cookie: {
@@ -52,7 +80,7 @@ app.use(session({
     //to store session in the mongodb database instead server memory
     store: MongoStore.create(
         {
-            mongoUrl: 'mongodb://127.0.0.1/Konnect_development',
+            mongoUrl: env.MONGO_URL,
             autoRemove: "disabled"
         },
         function (error) {

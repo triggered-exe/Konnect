@@ -27,7 +27,7 @@ module.exports.create = function (req, res) {
               console.log( " comment added successfully");
               //sending mail to user about new comment
               // commentMailer.newComment(comment);
-             let job = queue.create("emails", comment).save(function (err) {
+                let job = queue.create("emails", comment).save(function (err) {
                 if (err) {
                   console.log("error in creating a queue");
                   return;

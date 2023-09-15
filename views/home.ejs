@@ -1,15 +1,20 @@
 <link rel="stylesheet" href="/css/home.css" />
 
-
 <div id="home-container">
-  
   <section id="feed-post">
     <% if(locals.user){ %>
- 
+
     <form action="/post/create" id="post-create-form" method="post">
-      <img src="<%= user.avatar %>" alt="avatar">
-      <textarea name="content" id="post-content" cols="35" rows="3" placeholder="type your post here....." required></textarea>
-      <input id="post-create-button"type="submit" name="submit" value="post" />
+      <img src="<%= user.avatar %>" alt="avatar" />
+      <textarea
+        name="content"
+        id="post-content"
+        cols="35"
+        rows="3"
+        placeholder="type your post here....."
+        required
+      ></textarea>
+      <input id="post-create-button" type="submit" name="submit" value="post" />
     </form>
 
     <% } %>
@@ -20,7 +25,7 @@
       </ul>
     </div>
   </section>
- 
+
   <section id="user_friends-list">
     <h4>FRIENDS</h4>
     <% for(u of all_users) {%>
@@ -29,10 +34,16 @@
     </p>
     <% } %>
   </section>
+  <%- include(`_chatbox`) %>
   <script src="/js/home_post.js"></script>
   <script src="/js/home_comment.js"></script>
   <script src="/js/likes.js"></script>
-  
-      
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+  <script src="/js/chat_engine.js"></script>
+  <% if(locals.user){ %>
+  <script>
+    const chatBoxId = document.getElementById("sendMessage");
+    new ChatEngine(chatBoxId, `<%= locals.user.email %>`,`<%= serverURL %>`);
+  </script>
+  <% } %>
 </div>
-

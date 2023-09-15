@@ -1,0 +1,88 @@
+.chatbox {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 99;
+}
+
+.chatbox-header {
+    background-color: #333;
+    color: #fff;
+    padding: 5px;
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#message-list {
+    padding: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+#message-list{
+    list-style: none;
+}
+
+
+#message-list .received-message{
+    background-color: #f2f2f2;
+    padding: 8px;
+    margin: 5px 0;
+    border-radius: 5px;
+    clear: both;
+    float: left;
+    max-width: 70%;
+}
+
+#message-list .self-message{
+    background-color: #333;
+    color: #fff;
+    padding: 8px;
+    margin: 5px 0;
+    border-radius: 5px;
+    clear: both;
+    float: right;
+    max-width: 70%;
+}
+
+.chatbox-footer {
+    display: flex;
+    padding: 10px;
+    background-color: #eee;
+    border-top: 1px solid #ccc;
+}
+
+#toggleChat {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+#messageInput {
+    flex: 1;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-right: 10px;
+}
+
+#sendMessage {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+#sendMessage:hover, #toggleChat:hover {
+    background-color: #555;
+}

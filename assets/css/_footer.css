@@ -1,12 +1,14 @@
 #layout-footer {
-    position: sticky;
-    bottom: 0px;
+    position: relative;
+    /* bottom: 80px; */
     width: 100%;
+    /* height: 30px; */
     color: white;
-    background: grey;
+    background-color: #333;
     padding: 5px 10px;
     display: flex;
     justify-content: flex-start;
+    /* align-items: center; */
 }
 
 #layout-footer a {

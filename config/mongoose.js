@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
+const env = require("./environment")
 //Set up default mongoose connection
-var mongoDB = 'mongodb://127.0.0.1/Konnect_development';
+var mongoDB = process.env.MONGO_URL;
 mongoose.connect(mongoDB, { useNewUrlParser: true });
  //Get the default connection
 var db = mongoose.connection;
