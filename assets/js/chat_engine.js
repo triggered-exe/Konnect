@@ -2,10 +2,10 @@ class ChatEngine{
     constructor(chatBoxId, userEmail, serverURL){
         this.chatBox = chatBoxId;
         this.userEmail = userEmail;
-       //  for local aws 
+       //  for  aws 
         // this.socket = io.connect('http://konncect-env.eba-bgy9kheh.ap-south-1.elasticbeanstalk.com:5000');
        // for  localhost
-        this.socket = io.connect(serverURL || 'http://localhost:5000');
+        this.socket = io.connect('http://localhost:8000');
 
         if (this.userEmail){
             this.connectionHandler();

@@ -52,7 +52,12 @@ module.exports = {
   },
 
   createUser: function (req, res) {
-    
+
+    if (!req.body.avatar) {
+      // If no avatar URL is provided, set a default avatar
+      req.body.avatar = "uploads/users/avatars/default-profile.jpg";
+    }
+
     User.findOne({ email: req.body.email }).then((data) => {
       //handle user found
       if (!data) {
@@ -72,9 +77,12 @@ module.exports = {
       }
     });
   },
+
+  
   update: function async (req, res) {
     console.log("inside update")
-    console.log(req.file)
+    console.log(req.body); // Log the request body (text content)
+    console.log(req.file); // Log the uploaded file, if received
     if (req.user.id == req.params.id) {
       User.findById(req.params.id)
         .then(async (user) => {
@@ -86,7 +94,6 @@ module.exports = {
               }
                 user.avatar = req.file.path;
             }
-            console.log("inside update")
             user.name = req.body.name;
             user.email = req.body.email;
 
@@ -103,11 +110,15 @@ module.exports = {
       return res.status(401).send("unauthorized");
     }
   },
+
+
   createSession: function (req, res) {
     req.flash("success", "Logged in Successfully");
     console.log(req.user);
     res.redirect("/");
   },
+
+  
   destroySession: async function (req, res) {
    
     req.logout(function (err) {

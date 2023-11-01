@@ -24,7 +24,7 @@ document.addEventListener("click", function (event) {
             if(action === "add-friend") {
                 if(data.data.isCreated){
                     const friendStatusText  = document.getElementById("friend-status-text");
-                    friendStatusText.innerText = "Friend Added";
+                    // friendStatusText.innerText = "Friend Added";
                     friendButton.innerText = "Remove Friend";
                     friendButton.setAttribute("data-action", "remove-friend");
                 }
@@ -32,7 +32,7 @@ document.addEventListener("click", function (event) {
             }else{
                 if (data.data.isDeleted) {
                     const friendStatusText  = document.getElementById("friend-status-text");
-                    friendStatusText.innerText = "Friend Removed";
+                    // friendStatusText.innerText = "Friend Removed";
                     friendButton.innerText = "Add Friend";
                     friendButton.setAttribute("data-action", "add-friend");
                 }

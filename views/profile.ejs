@@ -1,29 +1,33 @@
 <link rel="stylesheet" href="/css/profile.css" />
 
-<% if (profile_user.avatar &&  profile_user.avatar.startsWith('https')) { %>
+
+<section id="profile-section">
+
+  <% if (profile_user.avatar &&  profile_user.avatar.startsWith('https')) { %>
     <img profile_user.avatar && src="<%=profile_user.avatar %>" alt="avatar" id="user-avatar" />
-<% } else { %>
-    <img src="/<%=profile_user.avatar %>" alt="avatar" id="user-avatar" />
-<% } %> 
-<% if(locals.user.id == profile_user.id) {%>
-  
-<div class="display-profile">
-  <form
-    action="/users/update/<%= profile_user.id %>"
-    method="post"
-    enctype="multipart/form-data"
-  >
-    <input type="text" name="name" value="<%= profile_user.name %>" required />
-    <input
-      type="email"
-      name="email"
-      value="<%= profile_user.email %>"
-      required
-    />
-    <input type="file" name="avatar" />
-    <input type="submit" value="update" />
-  </form>
-</div>
+  <% } else { %>
+      <img src="/<%=profile_user.avatar %>" alt="avatar" id="user-avatar" />
+  <% } %> 
+<!-- if user is same as logged in -->
+  <% if(locals.user.id == profile_user.id) {%>
+    
+  <div class="display-profile">
+    <form
+      action="/users/update/<%= profile_user.id %>"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      <input type="text" name="name" value="<%= profile_user.name %>" required />
+      <input
+        type="email"
+        name="email"
+        value="<%= profile_user.email %>"
+        required
+      />
+      <input type="file" name="avatar" />
+      <input type="submit" id="submit-button" value="update" />
+    </form>
+  </div>
 
 
 <%} else {%>
@@ -33,20 +37,20 @@
 </div>
 <!-- friendship status -->
 
-<div id="friend-status">
-  <% if(isFriend){ %>
-    <%= isFriend %>
-    <span id="friend-status-text">he is a Friend</span>
-    <button id="friend-button" data-action="remove-friend" data-id="<%= profile_user.id %>">Remove Friend</button>
-    <% }else{ %>
-      <%= isFriend %>
-      <span id="friend-status-text" >Not a Friend</span>
-      <button id="friend-button" data-action="add-friend" data-id="<%= profile_user.id %>">Add Friend</button>
+      <div id="friend-status">
+     <% if(isFriend){ %>
+      
+      <!-- <span id="friend-status-text">he is a Friend</span> -->
+      <button id="friend-button" data-action="remove-friend" data-id="<%= profile_user.id %>">Remove Friend</button>
+      <% }else{ %>
+        
+        <!-- <span id="friend-status-text" >Not a Friend</span> -->
+        <button id="friend-button" data-action="add-friend" data-id="<%= profile_user.id %>">Add Friend</button>
+        <% } %>
+      </div>
       <% } %>
- 
-  
-</div>
-<% } %>
+      </section>
+
  
 <script src="/js/friends.js"></script>
 

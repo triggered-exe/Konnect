@@ -1,14 +1,71 @@
-/* form to update the user info */
-.display-profile form{
+/* profile.css */
+
+/* Center the entire profile section */
+#profile-section {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
-    margin: 10px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  /* Styles for the user's avatar */
+  #user-avatar {
+    max-width: 150px; /* Adjust the maximum width as needed */
+    border-radius: 50%; /* Make the avatar circular */
+    margin: 0 auto; /* Center the avatar horizontally */
+    display: block; /* Remove any default inline styles */
+  }
+  
+  /* Styles for the display-profile section */
+  .display-profile form input{
+    display: block;
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid grey;
+    border-radius: 5px;
+  }
+
+  .display-profile form {
+    margin-top: 20px; /* Adjust the top margin as needed */
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-}
-/* user-avatar image */
-#user-avatar{
-    width: 150px;
-    height:150px;
-    margin-left: 40vw;
-    padding: 20px
-}
+    width: 100%;
+  }
+
+
+  
+  .display-profile h1 {
+    font-size: 24px; /* Adjust the font size as needed */
+  }
+  
+  /* Styles for the friend-status section */
+  #friend-status {
+    margin-top: 20px; /* Adjust the top margin as needed */
+  }
+  
+  #friend-status-text {
+    font-weight: bold; /* Make the text bold */
+  }
+  
+  /* Styles for the friend-button */
+  #friend-button, #submit-button {
+    background-color: #007bff; /* Change the button background color */
+    color: #fff; /* Change the button text color */
+    padding: 10px 20px; /* Adjust padding as needed */
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Add a smooth transition for hover effect */
+  }
+  
+  #friend-button:hover {
+    background-color: #0056b3; /* Change the button background color on hover */
+  }
+  

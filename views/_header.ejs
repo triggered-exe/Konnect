@@ -1,13 +1,46 @@
-<header>
-     <a href="/">KONNECT</a>
+<header class="text-effect">
+     
     
-    <% if(locals.user) { %>
+    <!-- <% if(locals.user) { %>
     <li><%= user.name %></li>
     <li>
         <a href="/users/sign-out"> SIGN-OUT</a>
     </li>
-    <% } else { %>
+      <% } else { %>
         <li><a href="/users/sign-in">SIGN-IN</a></li>
         <li><a href="/users/sign-up">SIGN-UP</a></li>
-        <% } %>
+        <% } %> -->
+            <div class="focus-in-contract-bck">
+               <a href="/">
+              <h1>KONNECT</h1>
+            </a>
+            </div>
+              
+            <div class="toggle-nav-items">
+              <label class="burger" for="burger">
+                <input type="checkbox" id="burger">
+                <span></span>
+                <span></span>
+                <span></span>
+                <div class="card">
+
+                          <% if(locals.user) { %>
+                          <div>Hi! <%= locals.user.name %></div>
+                          <div id="show-friendsList" data-id="<%= locals.user.id %>">Friends</div>
+                          <div class="toggle-chat">ChatBox</div>
+                          <div > <a href="/users/profile/<%= locals.user.id %>">Profile</a></div>
+                          <div>
+                            <a href="/users/sign-out">LOG-OUT</a>
+                          </div>
+                          
+                          <% } else { %>
+                          <div><a href="/users/sign-in">SIGN-IN</a></div>
+                          <div><a href="/users/sign-up">SIGN-UP</a></div>
+                          <% } %>
+
+                </div>
+              </label>
+                
+            </div>
+         
 </header>

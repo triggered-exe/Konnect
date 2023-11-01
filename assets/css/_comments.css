@@ -1,0 +1,35 @@
+
+.comments-li {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px;
+    /* border-top: 1px solid rgb(235, 235, 235); */
+    padding-left: 25%;;
+}
+
+.comments-li a{
+    color: green;
+    text-decoration: none;
+    padding-left: 15px;
+}
+
+.comments-li img{
+  width: 20px;
+  height: 20px;
+}
+
+  .comment-owner span{
+    margin-right:10px;
+  }
+
+  /* Style for the circular profile picture */
+.circular-profile-pic {
+    width: 20px; /* Adjust the size as needed */
+    height: 20px; /* Adjust the size as needed */
+    border-radius: 50%; /* Creates a circular shape */
+    object-fit: cover; /* Maintain aspect ratio and cover the entire circle */
+    margin-right:10px;
+}
+  
+

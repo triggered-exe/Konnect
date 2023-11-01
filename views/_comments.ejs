@@ -1,12 +1,25 @@
+<link rel="stylesheet" href="css/_comments.css">
 <!-- for showing comments -->
-<li id="comment-list-<%=comment.id %>">
-  <span
-    ><%= comment.content %> by <%= comment.user.name %>
+<li class="comments-li"id="comment-list-<%=comment.id %>">
+ 
+    
+    <% if (comment.user.avatar &&  comment.user.avatar.startsWith('https')) { %>
+      <img src="<%=comment.user.avatar %>" alt="User Profile" class="circular-profile-pic" />
+    <% } else { %>
+      <img src="/<%=comment.user.avatar %>" alt="User Profile" class="circular-profile-pic" />
+    <% } %>
+    
+    <span><%= comment.content %></span>
     <!-- display the likes of the comment  -->
     <% if(locals.user){ %>
-    <a href="/likes" class="likes-toggle" data-id="<%= comment.id %>" data-type="Comment">Likes: <%= comment.likes.length %></a>
+      
+      <a class="likes-toggle" data-id="<%= comment.id %>" data-type="Comment">
+        <img width="50" height="50" src="https://img.icons8.com/ios/50/like--v1.png" alt="speech-bubble--v1 data-id=<%= post.id %>"/>  
+        <%= comment.likes.length %>
+      </a>
+      
     <% } else {%>
-    <p>Likes: <%= comment.likes.length %></p>
+      <span><i class="fa fa-thumbs-up" aria-hidden="true"></i> <%= post.likes.length %></span>
     <% } %>
 
     <!-- show delete button only to user who made the comment -->
@@ -18,5 +31,5 @@
       >X</a
     >
     <% } %>
-  </span>
+
 </li>

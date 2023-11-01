@@ -27,14 +27,24 @@
   async function addPost(e) {
     const content_element = document.getElementById("post-content");
     content = content_element.value;
+    const formData = new FormData(); // Create a new FormData object
+    // Append the content to the FormData
+    formData.append("content", content);
+
+    // Get the selected file from the input field with id "media-upload"
+    const mediaFile = document.getElementById("media-upload").files[0];
+
+    // Append the mediaFile to the FormData
+    formData.append("media", mediaFile);
+
+    console.log(formData);
     content_element.value = "";
     if (content.length > 0) {
+      // Create a FormData object to capture the form data
+
       fetch(`/post/create`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ content }),
+        body: formData,
       })
         .then((response) => response.json())
         .then((data) => {
@@ -53,25 +63,73 @@
   function displayPost(post) {
     const post_list = document.getElementById("post-list");
     const li = document.createElement("li");
+    li.classList.add("post-li");
     li.id = `post-${post._id}`;
     li.innerHTML = `
-  ${post.content}
-  <small>posted by ${post.user.name}</small>
-  <a href="/likes" class="likes-toggle" data-id="${ post._id }" data-type="Post"  >Likes: 0</a>
-  <a class="post-delete-button" id="${post._id}" href="/post/delete/${post._id}">X</a>
+              <div class="post-owner">
 
-  <!-- for adding comments -->
+              ${post.user.avatar.startsWith('https')
+               ? `<img src="${post.user.avatar}" alt="User Profile" class="circular-profile-pic" />`
+               : `<img src="/${post.user.avatar}" alt="User Profile" class="circular-profile-pic" />`
+               }
+ 
+              <small>${post.user.name}</small>
+              <a class="post-delete-button" id="${post._id}" href="/post/delete/${post._id}">Delete</a>
 
-  <form method="post" class="comment-add-form" id="comment-add-form-${post._id}" action="/comment/create">
-    <input type="text" name="content" placeholder="comment here" required />
-    <input type="hidden" name="post_id" value="${post._id}" />
-    <input type="submit" value="add comment" />
-  </form>
+              </div>
 
-   <div class="comments-container">
-    <ul id= "postId-comment-${post._id}">
-     </ul>
-   </div>
+              <div class="wrapper">
+          
+              <div  class="box" class="media-container" >
+              <span >
+              ${post.content}
+              </span>
+              
+                 ${!post.media
+                ? ""
+                : (post.media.type === "image"
+                    ? `<img src="${post.media.url}" alt="Image Description" class="post-image"></img>`
+                    : `<video src="${post.media.url}" class="post-video" controls></video>`
+                  )
+                 }
+            
+                 </div>
+                 </div>
+
+                  
+                 
+                 <section class="comment-like-add-comment-section" style="padding: 5px">
+
+                 <div  class="likes-toggle" data-id="${post._id}" data-type="Post">
+                      <a class="likes-toggle" data-id="${post._id}" data-type="Post">  
+                      <img  src="https://img.icons8.com/ios/50/like--v1.png" alt="like" data-id="<%= post.id %>" data-type="Post"/>
+                      </a> ${post.likes.length}
+                   </div>
+
+                  <div style="display: inline-block;">
+                      <form method="post" class="comment-add-form" id="comment-add-form-${post._id}" action="/comment/create">
+                          <input type="text" name="content" placeholder="comment here" required />
+                          <input type="hidden" name="post_id" value="${post._id}" />
+                          <input type="submit" value="post" />
+                      </form>
+                  </div>
+
+                  <span class="toggle-comment-button" data-id="${post._id}" id="toggle-comments-${ post.id}">
+                  <img src="https://img.icons8.com/ios/50/speech-bubble--v1.png" data-id="${post._id}""/> 
+                      ${ post.comments.length}
+                  </span>
+
+                </section>
+              
+
+              <!-- for adding comments -->
+
+              
+
+              <div class="comments-container" id="comments-container-${post.id} ">
+                <ul id= "postId-comment-${post._id}">
+                </ul>
+              </div>
 
   `;
 
@@ -115,20 +173,27 @@
       .then((comment) => {
         //get the comments container and append the the newly created comment
         const commentContainer = document.getElementById(
-          "postId-comment-" + comment.post
+          "postId-comment-" + post_id
         );
+
         const li = document.createElement("li");
         li.id = "comment-list-" + comment._id;
+        li.classList.add("comments-li");
 
         li.innerHTML = `
-      <li id="comment-list-${comment._id}">
-      <span>${comment.content}
-      by ${comment.user.name}
-      <a href="/likes" class="likes-toggle" data-id="${ comment._id }" data-type="Comment"  >Likes: 0 </a>
-  
+
+        ${comment.user.avatar.startsWith('https')
+          ? `<img src="${comment.user.avatar}" alt="User Profile" class="circular-profile-pic" />`
+          : `<img src="/${comment.user.avatar}" alt="User Profile" class="circular-profile-pic" />`
+        }
+
+       <span>${comment.content}</span>
+       <a class="likes-toggle" data-id="${comment._id}" data-type="Comment">
+       <img src="https://img.icons8.com/ios/50/like--v1.png" data-id="${comment._id}"/> ${comment.likes.length}
+
+      </a>
+
          <a href="/comment/delete/${comment._id} " class="comment-delete-button" id="${comment._id}">X</a>
-     </span>
-     </li>
       `;
         commentContainer.prepend(li);
         commentDeleteEvent(document.getElementById(comment._id));

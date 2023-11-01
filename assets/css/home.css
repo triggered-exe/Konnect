@@ -1,35 +1,153 @@
-#home-container{
-    display: flex;
-    flex-wrap: none;
-    min-height:100vh;
+* {
+  margin: 0;
+  padding: 0;
 }
+
+body::before {
+  content: "";
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  /* background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%); */
+  background-size: cover;
+  background: #77A1D3;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #E684AE, #79CBCA, #77A1D3);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #E684AE, #79CBCA, #77A1D3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  /* background: #e3fafc; */
+  width: 100vw;
+  height: 100vh;
+  background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
+  
+}
+
+
+/* to hide the vertical scroll bar */
+
+body::-webkit-scrollbar {
+  width: 0.01rem; /* Set a very thin scrollbar width */
+}
+
+#layout-main {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+}
+
+
 #feed-post{
- width:70%;
- padding: 10px;
- background-color: #c9b7b7;
+ position: relative;
+ width:30vw;
+ padding-top: 3vmax;
+ overflow: scroll;
+ overflow-y: auto;
 }
-#user_friends-list{
-    width: 30%;
-    padding: 10px;
-    border-left: 1px solid white;
-    background-color: #cbcbcb;
+
+
+
+/* Hide the scrollbar in WebKit-based browsers */
+#feed-post::-webkit-scrollbar { 
+  width: 0.5em;
 }
+
 /* styling the post creation form */
 #post-create-form {
+    position: relative;
     display: flex;
     align-items: center;
-    justify-content: center;
+    width: 50%;
+    height: 4vmax;
+    max-height: 51px;
+    margin: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid rgba(95, 93, 91, 0.308);
+    border-radius: 15px;
+    overflow: hidden;
 }
-#post-create-form textarea{
-    resize: none;
+
+#post-create-form input[type="text"]{
+    display: block;
+    width: 75%;
+    outline: none;
     border: none;
+    text-align: center;
 }
+
+  /* Style for the custom media upload label */
+  #media-upload-container{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center ;
+    height: 100%;
+    width: 15%;
+    background-color: rgb(255, 255, 255);
+    border-left: 1px solid rgb(114, 114, 114);
+  }
+
+    #media-upload-container > label {
+      background: transparent;
+   }
+  
+  /* Style for the icon inside the label */
+  #media-upload-container > input {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
 #post-create-form img{
     height: 51px;
     width: 51px;
+    border-radius: 5px;
 }
+
 #post-create-form input{
-    height: 51px;
-    width: 51px;
-    border: none;
+  height: 51px;
+  width: 51px;
+  border: none;
 }
+
+#post-create-form input[type="submit"] {
+  background-color: #2ba3ff;
+}
+
+#post-create-form input[type="submit"]:hover {
+  background: transparent;
+  color: white;
+}
+
+
+/* Styles for screens with a minimum width of 1200px */
+@media screen and (min-width: 1200px) {
+  #feed-post {
+    width: 30%;
+  }
+}
+
+/* Styles for screens with a maximum width of 992px */
+@media screen and (max-width: 992px) {
+  #feed-post {
+    width: 40%;
+  }
+}
+
+
+/* Styles for screens with a maximum width of 768px */
+@media screen and (max-width: 768px) {
+  #feed-post {
+    width: 100%;
+    /* margin: 0px auto; */
+  }
+}
+
+
+
+
+

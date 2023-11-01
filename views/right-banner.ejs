@@ -1,0 +1,22 @@
+<link rel="stylesheet" href="css/right-banner.css">
+
+<section id="right-banner">
+  <div class="users-div">
+      <span>USERS</span>
+  </div>
+
+    <% for(u of all_users) {%>
+      <div class="users-div">
+        <% if ( u.avatar && u.avatar.startsWith('https')) { %>
+          <img src="<%=u.avatar %>" alt="User Profile" class="circular-profile-pic" />
+        <% } else { %>
+          <img src="/<%=u.avatar %>" alt="User Profile" class="circular-profile-pic" />
+        <% } %>
+
+        <a href="/users/profile/<%= u.id %>"><%= u.name %></a>
+      </div>
+    <% } %>
+    
+</section>
+
+<script src="/js/right-banner.js"></script>

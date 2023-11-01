@@ -1,0 +1,185 @@
+/* post section */
+#posts-list-container {
+     position: relative;
+     margin: auto;
+     text-align: center;
+  }
+  
+  #posts-list-container ul {
+    list-style: none;
+  }
+
+  .post-owner {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid rgba(95, 93, 91, 0.103);
+    background-color: rgba(95, 93, 91, 0.103);
+  }
+
+  /* Style for the circular profile picture */
+  .post-owner .circular-profile-pic {
+    width: 30px; /* Adjust the size as needed */
+    height: 30px; /* Adjust the size as needed */
+    border-radius: 50%; /* Creates a circular shape */
+    object-fit: cover; /* Maintain aspect ratio and cover the entire circle */
+    margin-right: 10px;
+}
+
+/* CSS for the delete button */
+.post-delete-button {
+    background-color: red;
+    color: white;
+    padding: 3px 10px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-left: auto; /* Push the button to the right end of the flex container */
+  }
+  
+  .post-delete-button:hover {
+    background-color: darkred;
+  }
+  
+  .media-container {
+    display: inline-block;
+    overflow: hidden;
+    padding: 10px 0px 0px 0px;
+    margin: 0 auto; /* Center the container horizontally */
+  }
+
+  
+  .post-image {
+    max-width: 100%; /* Adjust the maximum width as needed */
+    max-height: 500px; /* Adjust the maximum height as needed */
+    width: auto; /* Ensure the image maintains its aspect ratio */
+    height: auto; /* Ensure the image maintains its aspect ratio */
+    display: block; /* Remove any default inline styles */
+    margin: 5px auto; /* Center the image horizontally */
+    transition: transform .2s;
+    border-radius: 5px;
+    margin-top: 10px;
+    
+    /* border: 5px solid rgba(116, 77, 77, 0.233); */
+
+  }
+
+  .post-image:hover{
+    transform:scale(1.04);
+  }
+
+  .post-video {
+    max-width: 100%; /* Adjust the maximum width as needed */
+    max-height: 500px; /* Adjust the maximum height as needed */
+    width: auto; /* Ensure the video maintains its aspect ratio */
+    height: auto; /* Ensure the video maintains its aspect ratio */
+    display: block; /* Remove any default inline styles */
+    margin: 5px auto; /* Center the video horizontally */
+    transition: transform 0.2s; /* Add a smooth transition for scaling */
+    border-radius: 5px; /* Add rounded corners */
+    margin-top: 10px;
+  }
+  
+  .post-video:hover {
+    transform: scale(1.04); /* Scale the video slightly on hover */
+  }
+
+  
+  .post-li {
+    border: 1px solid rgba(95, 95, 95, 0.377);
+    margin-top: 10px;
+    border-radius: 5px;
+    padding-bottom: 10px;
+  }
+
+  .comment-like-add-comment-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+.comment-like-add-comment-section a {
+    display: block;
+    color: green;
+    text-decoration: none;
+}
+.comment-like-add-comment-section img {
+    width: 20px;
+    height: 20px;
+}
+
+
+.comment-add-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 20px;
+}
+
+.comment-like-add-comment-section input[type="text"] {
+  display: block;
+   outline: none;
+   border: none;
+   height: 100%;
+   width: 70%;
+   transition: all 0.3s ease;
+   font-family: Roboto;
+   border-radius: 5px 0 0 5px;
+   padding-left: 10px;
+}
+.comment-like-add-comment-section input[type="submit"] {
+  display: block;
+   outline: none;
+   border: none;
+   height: 100%;
+   width: 30%;
+   background-color: #2ba3ff;
+   transition: all 0.3s ease;
+   border-radius: 0 5px 5px 0;
+}
+.comment-like-add-comment-section input:hover {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+/* CSS for likes-toggle */
+.likes-toggle {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+    cursor: pointer; /* Add a pointer cursor to indicate it's clickable */
+    /* background-color: red; */
+ }
+
+ /* comments toggle */
+ .toggle-comment-button{
+  display: flex;
+  align-items: center;
+  gap: 2px;
+    cursor: pointer;
+}
+
+.hide-comments {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 1s ease, max-height 0.5s ease;
+}
+
+.show-comments {
+  opacity: 1;
+  max-height: 400px; /* Adjust this value to your desired max height */
+  overflow: scroll;
+  transition: opacity 1s ease, max-height 0.5s ease;
+}
+
+.comments-container{
+
+  overflow-y: hidden; /* Hide vertical scrollbar */
+  overflow-x: hidden; /* Hide horizontal scrollbar */
+}
+
+.comments-container ul{
+    padding: 0px;
+}
+

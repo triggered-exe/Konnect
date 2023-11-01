@@ -1,11 +1,13 @@
 document.addEventListener('click', function(event) {
     let target = event.target;
-    if(event.target.className === "likes-toggle"){
-        event.preventDefault();
+
+    if(target.closest(".likes-toggle")){
         console.log("clicked like button");
-        let id = target.dataset.id;
-        let type = target.dataset.type;
-        console.log(id, type);
+        let anchor = target.closest(".likes-toggle");
+
+        let id = anchor.dataset.id;
+        let type = anchor.dataset.type;
+        
         fetch('/likes/toggle', {
             method: 'POST',
             headers: {
@@ -15,9 +17,17 @@ document.addEventListener('click', function(event) {
         })
         .then(res => res.json())
         .then((data)=>{
-            console.log(data.data)
-            target.innerText = `Likes: ${data.data.likesCount}`;
+            anchor.innerHTML = `<img  src="https://img.icons8.com/ios/50/like--v1.png" alt="like" data-id=${id} data-type="Post"/>
+             ${data.data.likesCount}`;
+            // target.innerText = `Likes: ${data.data.likesCount}`;
         })
         .catch(err => console.log(err))
     }
 })
+
+document.addEventListener("DOMContentLoaded", () => {
+    // Add event listener to all toggle-comment-button elements
+    document.querySelectorAll(".toggle-comment-button").forEach((button) => {
+      button.addEventListener("click", toggleComments);
+    });
+  });

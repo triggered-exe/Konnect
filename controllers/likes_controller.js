@@ -6,12 +6,10 @@ const Comment = require("../models/comment");
 module.exports.toggleLike = async function(req, res){
     try {
         let likeable;
-        console.log(req.body)
+        console.log(req.body);
         let deleted = false;
         if(req.body.type === "Post"){
             likeable = await Post.findById(req.body.id).populate("likes");
-            // console.log("likeable length",likeable);
-            // console.log("likeable length",likeable.likes);
         }else{
             likeable = await Comment.findById(req.body.id).populate("likes");
         }

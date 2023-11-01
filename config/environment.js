@@ -4,7 +4,7 @@ const { http } = require("winston");
 require("dotenv").config();
 
 const development = {
-  name: process.env.NODE_ENV || "development",
+  name: "development",
   MONGO_URL: process.env.MONGO_URL,
   assets_path: process.env.ASSETS_PATH || "./assets",
   session_cookie_key: process.env.SESSION_COOKIE_KEY || "change",
@@ -15,15 +15,15 @@ const development = {
     port: parseInt(process.env.SMTP_PORT) || 587,
     secure: process.env.SMTP_SECURE === "true",
     auth: {
-      user: process.env.SMTP_USER || "triggertesting47@gmail.com",
-      pass: process.env.SMTP_PASS || "lqrbduobasktxmxm",
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS,
     },
   },
   google_client_id: process.env.GOOGLE_CLIENT_ID || "your_google_client_id",
   google_client_secret:
   process.env.GOOGLE_CLIENT_SECRET || "your_google_client_secret",
   google_callback_url: "http://localhost:8000/users/auth/google/callback",
-  jwt_secret_key: process.env.JWT_SECRET_KEY || "konnect",
+  jwt_secret_key: process.env.JWT_SECRET_KEY,
 };
 
 const production = {
@@ -39,17 +39,16 @@ const production = {
     port: parseInt(process.env.SMTP_PORT) || 587,
     secure: process.env.SMTP_SECURE === "true",
     auth: {
-      user: process.env.SMTP_USER || "triggertesting47@gmail.com",
-      pass: process.env.SMTP_PASS || "lqrbduobasktxmxm",
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS,
     },
   },
   google_client_id: process.env.GOOGLE_CLIENT_ID || "your_google_client_id",
   google_client_secret:    process.env.GOOGLE_CLIENT_SECRET || "your_google_client_secret",
   google_callback_url:process.env.GOOGLE_CALLBACK_URL,
-  jwt_secret_key: process.env.JWT_SECRET_KEY || "konnect",
+  jwt_secret_key: process.env.JWT_SECRET_KEY,
 };
 
-module.exports = development;
-// module.exports = production;
+// module.exports = development;
+module.exports = production;
 
-// module.exports = { development, production } ;

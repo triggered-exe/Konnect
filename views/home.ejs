@@ -1,49 +1,74 @@
 <link rel="stylesheet" href="/css/home.css" />
 
-<div id="home-container">
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+
+
+  <%- include('left-banner.ejs', { user: locals.user }) %>
+
+
   <section id="feed-post">
     <% if(locals.user){ %>
 
-    <form action="/post/create" id="post-create-form" method="post">
+    <!-- Post Creation Form -->
+    <form
+      
+      id="post-create-form"
+      method="post"
+      enctype="multipart/form-data"
+     >
       <img src="<%= user.avatar %>" alt="avatar" />
-      <textarea
+      <input type="text"
         name="content"
         id="post-content"
         cols="35"
         rows="3"
-        placeholder="type your post here....."
+        placeholder="Type your post here..."
         required
-      ></textarea>
-      <input id="post-create-button" type="submit" name="submit" value="post" />
+      ></input>
+        
+      <div id="media-upload-container">
+        <i class="fa fa-upload" aria-hidden="true"></i>
+        <!-- <label for="media-upload" id="media-upload-label"></label> -->
+        <input
+          type="file"
+          name="media"
+          id="media-upload"
+          accept="image/*,video/*"
+        />
+      </div>
+      
+      <input id="post-create-button" type="submit" name="submit" value="Post" />
     </form>
 
     <% } %>
-    <div id="posts-list-container">
-      <ul id="post-list">
-        <!-- showing all the post  -->
-        <% for(post of posts){ %> <%- include(`_post.ejs`) %> <% } %>
-      </ul>
-    </div>
+
+    <!-- showing all the post  -->
+    <%- include(`_post.ejs`) %>
+    
   </section>
 
-  <section id="user_friends-list">
-    <h4>FRIENDS</h4>
-    <% for(u of all_users) {%>
-    <p>
-      <a href="/users/profile/<%= u.id %>"><%= u.name %></a>
-    </p>
-    <% } %>
-  </section>
-  <%- include(`_chatbox`) %>
+    
+  <%- include('right-banner.ejs' , { user: locals.user }) %>
+
+  
+  <% if(locals.user){ %>
+    <%- include(`_chatbox`) %>
+  <% } %>
   <script src="/js/home_post.js"></script>
   <script src="/js/home_comment.js"></script>
   <script src="/js/likes.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
   <script src="/js/chat_engine.js"></script>
+
+
+
+</div>
   <% if(locals.user){ %>
   <script>
     const chatBoxId = document.getElementById("sendMessage");
-    new ChatEngine(chatBoxId, `<%= locals.user.email %>`,`<%= serverURL %>`);
+    new ChatEngine(chatBoxId, `<%= locals.user.email %>`, `<%= serverURL %>`);
   </script>
   <% } %>
-</div>

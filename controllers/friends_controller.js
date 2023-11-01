@@ -128,3 +128,36 @@ module.exports.removeFriend = async (req, res) => {
     }
   } catch (error) {}
 };
+
+
+// to send friendlist
+
+module.exports.showFriendList = async (req,res)=>{
+  try {
+    const userId = req.params.id;
+    
+    // Find the user by their ID and populate the "friends" field
+  
+    let friends1 = await Friendship.find({ from_user: userId })
+    .populate('to_user', '_id name avatar')
+    .exec();
+  
+  let friends2 = await Friendship.find({ to_user: userId })
+    .populate('from_user', '_id name avatar')
+    .exec();
+  
+    // Merge the two arrays of friends
+    friends1 = friends1.map((friendship) => friendship.to_user);
+    friends2 = friends2.map((friendship) => friendship.from_user);
+
+    const allFriends = friends1.concat(friends2);
+
+    console.log("friendList",allFriends)
+
+    return res.json(allFriends);
+  } catch (error) {
+    // Handle any errors that occur during the process
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};

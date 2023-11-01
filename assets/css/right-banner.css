@@ -1,0 +1,53 @@
+
+#right-banner{
+    position: sticky;
+    top: 0;
+    padding-top: 3vmax;
+    height: 100vh;
+    overflow-y: auto; 
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: self-start;
+    box-sizing: border-box;
+    background-color: #cbcbcb2a;
+  }
+
+  #right-banner a{
+    text-decoration: none;
+    color: black;
+  }
+
+  .friend-div, .users-div {
+    display: flex;
+    justify-content: flex-start;
+    align-self: start;
+    padding: 10px;
+    margin-top: 1px;
+    width: 100%;
+    font-size: 1.5em;
+    transition: all 0.2s ease;
+  }
+
+  .friend-div:hover, .users-div:hover {
+    background-color: rgba(71, 90, 124, 0.205);
+    border-radius: 15px;
+  }
+
+  /* Style for the circular profile picture */
+  .circular-profile-pic {
+    width: 20px; /* Adjust the size as needed */
+    height: 20px; /* Adjust the size as needed */
+    border-radius: 50%; /* Creates a circular shape */
+    object-fit: cover; /* Maintain aspect ratio and cover the entire circle */
+    margin-right:10px;
+    border: 1px solid #cbcbcb2a;
+}
+  
+/* Media query to hide #right-banner on screens with a maximum width of 768px (typical mobile screens) */
+@media screen and (max-width: 768px) {
+  #right-banner {
+    display: none; /* Hide the #right-banner on smaller screens */
+  }
+}

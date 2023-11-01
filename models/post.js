@@ -5,6 +5,14 @@ const postSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    media: {
+        type: {
+          type: String,
+          enum: ["image", "video"],
+        },
+        url: String, // URL or file path for the media
+      
+      },
     user: {
         type: Schema.Types.ObjectId,
         ref: "User"

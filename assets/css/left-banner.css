@@ -1,0 +1,54 @@
+#left-banner {
+    position: sticky;
+    flex-grow: 1;
+    top: 0;
+    padding-top: 3vmax;
+    height: 100vh; /* Set the height to match the viewport height */
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    box-sizing: border-box;
+    background-color: #cbcbcb2a;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    
+  }
+
+
+  #left-banner  div {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    text-align: end;
+    margin-top: 1px;
+    font-size: 1.5em;
+    color: #ffef13;
+    font-weight: bold;
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+
+  #left-banner div:hover {
+      background-color: rgba(233, 255, 39, 0.205);
+      color: white;
+      border-radius: 15px;
+  }
+
+  #left-banner div a {
+    text-decoration: none;
+    color: #ffef13;
+    /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); */
+  }
+    
+  #left-banner div a:hover {
+    color: white;
+  }
+
+
+  /* Media query to hide #right-banner on screens with a maximum width of 768px (typical mobile screens) */
+@media screen and (max-width: 768px) {
+  #left-banner {
+    display: none; /* Hide the #right-banner on smaller screens */
+  }
+}

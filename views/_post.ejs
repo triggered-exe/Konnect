@@ -1,43 +1,95 @@
-<li id="post-<%= post.id %>">
-  <%= post.content %>
-  <small>posted by <%= post.user.name %></small>
+<link rel="stylesheet" href="css/_post.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<!-- for comment icon -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
 
-  <!-- display the likes of the post  -->
-  <% if(locals.user){ %>
-    <a href="/likes" class="likes-toggle" data-id="<%= post.id %>" data-type="Post"  >Likes: <%= post.likes.length %></a>
-    <% } else {%>
-    <p>Likes: <%= post.likes.length %></p>
-    <% } %>
+<div id="posts-list-container">
+  <ul id="post-list">
+    
+    <% for(post of posts){ %> 
+      <li class="post-li" id="post-<%= post.id %>">
+        <div class="post-owner">
+          <% if (post.user.avatar &&  post.user.avatar.startsWith('https')) { %>
+            <img src="<%=post.user.avatar %>" alt="User Profile" class="circular-profile-pic" />
+          <% } else { %>
+            <img src="/<%=post.user.avatar %>" alt="User Profile" class="circular-profile-pic" />
+          <% } %>
 
-  <!-- showing delete button only to signed in user and if the post is made by the signed in user -->
-  <% if(locals.user && locals.user.id == post.user.id){ %>
-  <a
-    class="post-delete-button"
-    id="<%= post.id %>"
-    href="/post/delete/<%= post.id %>"
-    >X</a
-  >
-  <% } %>
+          <small> <%= post.user.name %></small>
 
-  <!-- for adding comments -->
-  <% if(locals.user){%>
-  <form
-    method="post"
-    class="comment-add-form"
-    id="comment-add-form-<%= post.id %>"
-    action="/comment/create"
-  >
-    <input type="text" name="content" placeholder="comment here" required />
-    <input type="hidden" name="post_id" value="<%= post.id %>" />
-    <input type="submit" value="add comment" />
-  </form>
-  <% }%>
 
-  <!-- for showing likes -->
+        <!-- showing delete button only to signed in user and if the post is made by the signed in user -->
+        <% if(locals.user && locals.user.id == post.user.id){ %>
+          <a
+            class="post-delete-button"
+            id="<%= post.id %>"
+            href="/post/delete/<%= post.id %>"
+            >Delete</a
+          >
+          <% } %>
 
-  <div class="comments-container">
-    <ul id="postId-comment-<%= post.id %>">
-      <% for(comment of post.comments){%> <%- include(`_comments.ejs`) %> <% }%>
-    </ul>
-  </div>
-</li>
+        </div>
+
+        <div class="wrapper">
+          
+          <div  class="media-container" >
+            <span >
+              <%= post.content %>
+            </span>
+            
+           <% if(post.media.type === "image"){ %>
+              <img src="<%= post.media.url %>" alt="Image Description" class="post-image">
+           <% }else if (post.media.type === "video"){ %>
+            <video src="<%= post.media.url %>" class="post-video" controls>></video>
+           <% } %>
+          
+          </div>
+        </div>
+
+          <section class="comment-like-add-comment-section" style="padding: 5px">
+
+            <% if (locals.user) { %>
+              <div  class="likes-toggle" data-id=<%= post.id %> data-type="Post">
+                <a data-id="<%= post.id %>" data-type="Post">  
+                <img  src="https://img.icons8.com/ios/50/like--v1.png" alt="like" data-id="<%= post.id %>" data-type="Post"/>
+              </a><%= post.likes.length %>
+
+              </div>
+
+              <div>
+                <form method="post" class="comment-add-form" id="comment-add-form-<%= post.id %>" action="/comment/create">
+                  <input type="text" name="content" placeholder="comment here" required />
+                  <input type="hidden" name="post_id" value="<%= post.id %>" />
+                  <input type="submit" value="post" />
+                </form>
+              </div>
+            <% } else { %>
+              <span class="toggle-comment-button" id="toggle-comments-<%= post.id %>"><img  src="https://img.icons8.com/ios/50/like--v1.png" alt="like" data-id="<%= post.id %>" data-type="Post"/> <%= post.likes.length %></span>
+            <% } %>
+
+            <!-- Add an ID to identify this element -->
+            <div class="toggle-comment-button" data-id=<%= post.id %> id="toggle-comments-<%= post.id %>">
+              <img src="https://img.icons8.com/ios/50/speech-bubble--v1.png" alt="speech-bubble--v1 data-id=<%= post.id %>"/> 
+              <%= post.comments.length %>
+            </div>
+
+          </section>
+      
+      
+        <div class="comments-container hide-comments" id="comments-container-<%= post.id %>">
+          <ul id="postId-comment-<%= post.id %>">
+            <% for(comment of post.comments){%> <%- include(`_comments.ejs`) %> <% }%>
+          </ul>
+        </div>
+      </li>
+      <% } %>
+    
+    
+  </ul>
+</div>
+
+<script src="js/media.js"></script>
+

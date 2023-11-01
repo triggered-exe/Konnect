@@ -8,6 +8,8 @@ const passport = require("passport");
 
 const User = require("../models/user");
 
+const upload = require("../config/multer/avatar-upload.js");
+
 router.get(
   "/profile/:id",
   passport.checkAuthentication,
@@ -17,13 +19,15 @@ router.get(
 router.post(
   "/update/:id",
   passport.checkAuthentication,
-  User.upload,
+  upload.single("avatar"),
   userController.update
 );
+
 //router.get("/", passport.checkAuthentication, userController.profile);
 router.get("/sign-in", userController.signin);
 router.get("/sign-up", userController.signup);
 router.post("/createUser", userController.createUser);
+
 //using passport as a middlewate to authenticate
 router.post(
   "/create-session",
@@ -32,6 +36,7 @@ router.post(
 );
 router.get("/sign-out", userController.destroySession);
 
+// authenticate using google
 router.get(
   "/auth/google",
   passport.authenticate( "google",{ scope: ["profile", "email"] })

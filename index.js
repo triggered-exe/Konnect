@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const env = require("./config/environment");
-const port = env.PORT || 8000;
+const PORT = env.PORT || 8000;
 const logger = require("./logger.js")
 const cookieParser = require('cookie-parser');
 const db = require("./config/mongoose.js");
@@ -11,19 +11,21 @@ const passportLocal = require("./config/passport-local-strategy.js");
 const passportJWT = require("./config/passport-jwt-strategy.js");
 const passportGoogle = require("./config/passport-google-oauth2-strategy.js");
 const path = require("path");
-
+const { Server } = require('socket.io');
+const {chatServerListener} = require("./config/chat_server_listener.js");
 
 const MongoStore = require("connect-mongo");
 const flash = require("connect-flash");
 const customMware = require("./config/middleware.js");
 
 
+
 // setup the chat server to be used with socket.io
-const http = require("http");
-const chatServer = http.createServer(app);
-const chatSockets = require('./config/chat_sockets').chatSockets(chatServer);
-chatServer.listen(5000);
-console.log('chat server is listening on port 5000');
+// const http = require("http");
+// const chatServer = http.createServer(app);
+// const chatSockets = require('./config/chat_sockets').chatSockets(chatServer);
+// chatServer.listen(5000);
+// console.log('chat server is listening on port 5000');
 
 
 
@@ -44,10 +46,9 @@ app.use('/', (req, res, next) => {
 
 
 app.use(cookieParser());
-// for json
-app.use(express.json())
-// for form data
-app.use(express.urlencoded({ extended: true }))
+// Increase request size limits
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
 
 //using layouts 
@@ -81,7 +82,7 @@ app.use(session({
     store: MongoStore.create(
         {
             mongoUrl: env.MONGO_URL,
-            autoRemove: "disabled"
+            autoRemove: "enabled"
         },
         function (error) {
             console.log(error || `connect-mongodb setup ok`);
@@ -104,10 +105,21 @@ app.use(customMware.setFlash);
 app.use("/", require("./routes/index.js"));
 
 
-app.listen(port, (err) => {
+const expressServer = app.listen(PORT, (err) => {
     if (err) {
         console.log("Error: ", err);
     } else {
-        console.log("This server is running on port:", port);
+        console.log("This Server is running on PORT:", PORT);
     }
 }) 
+
+
+//  setup the char server using socket.io
+
+const io = new Server(expressServer, {
+    // cors: {
+    //     origin: process.env.NODE_ENV === "production" ? false : ["http://localhost:5500", "http://127.0.0.1:5500"]
+    // }
+})
+
+chatServerListener(io);

@@ -1,9 +1,11 @@
-.chatbox {
+#chatbox {
+    display: block;
+
     position: fixed;
     bottom: 20px;
-    right: 20px;
+    right: 10px;
     width: 300px;
-    background-color: #fff;
+    background-color: #9aa28c40;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -59,7 +61,7 @@
     border-top: 1px solid #ccc;
 }
 
-#toggleChat {
+.toggleChat {
     background-color: #333;
     color: #fff;
     border: none;
