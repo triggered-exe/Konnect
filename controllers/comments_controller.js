@@ -24,17 +24,19 @@ module.exports.create = function (req, res) {
           Comment.findById(data._id)
             .populate("user")
             .then((comment) => {
-              console.log( " comment added successfully");
+              // console.log( " comment added successfully");
               //sending mail to user about new comment
-              // commentMailer.newComment(comment);
-                let job = queue.create("emails", comment).save(function (err) {
-                if (err) {
-                  console.log("error in creating a queue");
-                  return;
-                }
-                console.log("job enqueued successfully: "+ job.id);
-                return;
-              })
+              commentMailer.newComment(comment);
+              console.log("comment email worker working"+ comment)
+              // using queue
+              //   let job = queue.create("emails", comment).save(function (err) {
+              //   if (err) {
+              //     console.log("error in creating a queue");
+              //     return;
+              //   }
+              //   console.log("job enqueued successfully: "+ job.id);
+              //   return;
+              // })
               return res.status(201).json(comment);
             });
         })

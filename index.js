@@ -19,16 +19,6 @@ const flash = require("connect-flash");
 const customMware = require("./config/middleware.js");
 
 
-
-// setup the chat server to be used with socket.io
-// const http = require("http");
-// const chatServer = http.createServer(app);
-// const chatSockets = require('./config/chat_sockets').chatSockets(chatServer);
-// chatServer.listen(5000);
-// console.log('chat server is listening on port 5000');
-
-
-
 // Custom middleware to log requests for the home page
 app.use('/', (req, res, next) => {
     // Check if the request URL does not start with '/css/', '/js/', or '/uploads/'
@@ -118,7 +108,7 @@ const expressServer = app.listen(PORT, (err) => {
 
 const io = new Server(expressServer, {
     cors: {
-        origin:["https://konnect-odr1.onrender.com:10000","https://konnect-odr1.onrender.com","http://localhost:5500", "http://127.0.0.1:5500"]
+        origin:["https://konnect-odr1.onrender.com:10000","https://konnect-odr1.onrender.com","http://localhost:8000", "http://127.0.0.1:8000"]
     }
 })
 

@@ -1,7 +1,6 @@
 const multer = require("multer");
 const path = require("path");
 const MEDIA_PATH = path.join("uploads/users/media/");
-console.log(MEDIA_PATH)
 
 // Configure multer for handling file uploads
 const storage = multer.diskStorage({

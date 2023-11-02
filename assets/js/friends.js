@@ -9,7 +9,7 @@ document.addEventListener("click", function (event) {
     const action = friendButton.getAttribute("data-action");
     const friendId = friendButton.getAttribute("data-id");
 
-    console.log(action, friendId)
+    // console.log(action, friendId)
 
     fetch(`/friends/${action}`, {
         method: "POST",
@@ -20,7 +20,7 @@ document.addEventListener("click", function (event) {
         })
         .then((res) => res.json())
         .then((data) => {
-            console.log(data)
+            // console.log(data)
             if(action === "add-friend") {
                 if(data.data.isCreated){
                     const friendStatusText  = document.getElementById("friend-status-text");

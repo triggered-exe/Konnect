@@ -16,13 +16,11 @@ function(req, email, password, done){
                 req.flash("error", "Incorrect password");
                 return done(null, false)
             }else{
-                console.log("correct password");
                 return done(null, user);
             }
             //email doesnt exist
         }else{
             req.flash("error", "User not found");
-            console.log("user not found");
             return done(null, false)
         }
     })
@@ -36,13 +34,13 @@ function(req, email, password, done){
 
 //serializing the user to decide which key is to be kept in the session cookies
 passport.serializeUser(function(user, done){
-    console.log("serializing user");
+    // console.log("serializing user");
     done(null,user.id);
 })
 
 //deserializing user from the key in the cookies
 passport.deserializeUser(function(id, done){
-    console.log("deserializing user");
+    // console.log("deserializing user");
     User.findById(id)
     .then((user)=>{
         if(user){

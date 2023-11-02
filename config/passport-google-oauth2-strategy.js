@@ -25,7 +25,6 @@ passport.use(
             avatar: profile.photos[0].value,
           })
             .then((user) => {
-              console.log("user sign-up successfully");
               return cb(null, user);
             })
             .catch((err) => {

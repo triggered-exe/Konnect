@@ -11,10 +11,10 @@ document.addEventListener('click', function(event) {
             let rightBanner = document.getElementById("right-banner");
             rightBanner.innerHTML = `<div class="friend-div"> <span>Friends</span> </div>`;
 
-            console.log(friendList)
+            // console.log(friendList)
 
             friendList.forEach(friend => {
-                console.log(friend.avatar)
+                // console.log(friend.avatar)
                 let friendDiv = `
                     <div class="friend-div">
                         ${(!friend.avatar) 

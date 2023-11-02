@@ -12,10 +12,14 @@ module.exports.chatServerListener = (io) => {
   //     methods: ["GET", "POST"],
   //   },
   // });
+    io.on("connect_error", (err) => {
+      console.log(`connect_error due to ${err.message}`);
+    });
 
   io.on("connection", (socket) => {
     console.log(`socket connected!! ${socket.id}`);
-    console.log("hi")
+
+
 
     socket.on("disconnect", () => {
       console.log("socket disconnected!");

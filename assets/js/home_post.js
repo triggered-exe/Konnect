@@ -37,7 +37,7 @@
     // Append the mediaFile to the FormData
     formData.append("media", mediaFile);
 
-    console.log(formData);
+    // console.log(formData);
     content_element.value = "";
     if (content.length > 0) {
       // Create a FormData object to capture the form data
@@ -197,7 +197,7 @@
       `;
         commentContainer.prepend(li);
         commentDeleteEvent(document.getElementById(comment._id));
-        console.log("comment added successfully");
+        // console.log("comment added successfully");
         showNotification("Comment added successfully", "success");
       })
       .catch((err) => {

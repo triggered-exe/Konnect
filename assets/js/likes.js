@@ -2,7 +2,6 @@ document.addEventListener('click', function(event) {
     let target = event.target;
 
     if(target.closest(".likes-toggle")){
-        console.log("clicked like button");
         let anchor = target.closest(".likes-toggle");
 
         let id = anchor.dataset.id;
