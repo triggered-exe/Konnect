@@ -1,22 +1,22 @@
-// const redis = require('redis');
-// const kue = require('kue');
+const redis = require('redis');
+const kue = require('kue');
 
-// // Use environment variables for configuration
-// const redisHost = "localhost" || process.env.REDIS_HOST;
-// const redisPort = process.env.REDIS_PORT;
+// Use environment variables for configuration
+const redisHost = "localhost" || process.env.REDIS_HOST;
+const redisPort = process.env.REDIS_PORT;
 
-// // Create a Kue queue
-// const queue = kue.createQueue({
-//   redis: {
-//     host: redisHost,
-//     port: redisPort,
-//   },
-// });
+// Create a Kue queue
+const queue = kue.createQueue({
+  redis: {
+    host: redisHost,
+    port: redisPort,
+  },
+});
 
-// // Handle Kue queue errors
-// queue.on('error', (err) => {
-//   console.error('Kue error:', err);
-// });
+// Handle Kue queue errors
+queue.on('error', (err) => {
+  console.error('Kue error:', err);
+});
 
 
-// module.exports = queue;
+module.exports = queue;

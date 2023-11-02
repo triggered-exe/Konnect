@@ -108,7 +108,12 @@ const expressServer = app.listen(PORT, (err) => {
 
 const io = new Server(expressServer, {
     cors: {
-        origin:["https://konnect-odr1.onrender.com:10000","https://konnect-odr1.onrender.com","http://localhost:8000", "http://127.0.0.1:8000"]
+        origin:[
+            "http://konncect-env.eba-bgy9kheh.ap-south-1.elasticbeanstalk.com:5000",
+            "https://konnect-odr1.onrender.com:10000","https://konnect-odr1.onrender.com",
+            "http://localhost:8000",
+            "http://127.0.0.1:8000"
+        ]
     }
 })
 

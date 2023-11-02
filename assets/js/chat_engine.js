@@ -3,8 +3,8 @@ class ChatEngine{
         this.chatBox = chatBoxId;
         this.userEmail = userEmail;
        //  for  aws 
-        // this.socket = io.connect('http://konncect-env.eba-bgy9kheh.ap-south-1.elasticbeanstalk.com:5000');
-        this.socket = io('https://konnect-odr1.onrender.com:10000');
+        this.socket = io.connect('http://konncect-env.eba-bgy9kheh.ap-south-1.elasticbeanstalk.com:5000');
+        // this.socket = io('https://konnect-odr1.onrender.com:10000');
        // for  localhost
         // this.socket = io('http://localhost:10000');
 
