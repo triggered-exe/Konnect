@@ -1,7 +1,5 @@
 const nodemailer = require("../config/nodemailer.js");
 
-//new way of exporting
-
 exports.newComment = async (comment) => {
    let htmlString = await nodemailer.renderTempelate("/comments/new_comment.ejs", comment);
    console.log(htmlString)

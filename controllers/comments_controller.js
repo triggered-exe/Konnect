@@ -5,7 +5,6 @@ const commentMailer = require("../mailers/comments_mailer.js");
 const queue = require("../config/kue.js")
 const commentEmailWorker = require("../workers/comment_email_worker.js");
 
-
 module.exports.create = function (req, res) {
   const post = req.body.post_id;
   //check if post exists

@@ -1,15 +1,12 @@
 const redis = require('redis');
 const kue = require('kue');
-
-// Use environment variables for configuration
-const redisHost = "localhost" || process.env.REDIS_HOST;
-const redisPort = process.env.REDIS_PORT;
+const environment = require('./environment');
 
 // Create a Kue queue
 const queue = kue.createQueue({
   redis: {
-    host: redisHost,
-    port: redisPort,
+    host: environment.REDIS_HOST,
+    port: environment.REDIS_PORT,
   },
 });
 

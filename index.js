@@ -1,8 +1,9 @@
-const express = require("express");
+const express = require('express');
 const app = express();
+const http = require('http');
+const server = http.createServer(app);
 const env = require("./config/environment");
 const PORT = env.PORT || 8000;
-const logger = require("./logger.js")
 const cookieParser = require('cookie-parser');
 const db = require("./config/mongoose.js");
 const session = require("express-session");
@@ -17,22 +18,6 @@ const {chatServerListener} = require("./config/chat_server_listener.js");
 const MongoStore = require("connect-mongo");
 const flash = require("connect-flash");
 const customMware = require("./config/middleware.js");
-
-
-// Custom middleware to log requests for the home page
-app.use('/', (req, res, next) => {
-    // Check if the request URL does not start with '/css/', '/js/', or '/uploads/'
-    if (!req.url.startsWith('/css/') && !req.url.startsWith('/js/') && !req.url.startsWith('/uploads/')) {
-      const user = req.user; // Assuming user information is stored in req.user
-      const userAgent = req.headers['user-agent'];
-      const ipAddress = req.ip;
-  
-      // Log request with user information, user agent, and IP address
-      logger.info(`[${new Date().toLocaleString()}] ${req.method} ${req.url} - User: ${user ? user.username : 'Anonymous'} - User Agent: ${userAgent} - IP Address: ${ipAddress}`);
-    }
-    next();
-  })
-
 
 
 app.use(cookieParser());
@@ -107,14 +92,17 @@ const expressServer = app.listen(PORT, (err) => {
 //  setup the char server using socket.io
 
 const io = new Server(expressServer, {
-    cors: {
-        origin:[
-            "http://konncect-env.eba-bgy9kheh.ap-south-1.elasticbeanstalk.com:5000",
-            "https://konnect-odr1.onrender.com:10000","https://konnect-odr1.onrender.com",
-            "http://localhost:8000",
-            "http://127.0.0.1:8000"
-        ]
-    }
+    // cors: {
+    //     origin:[
+    //         "https://konncect-env.eba-bgy9kheh.ap-south-1.elasticbeanstalk.com",
+    //         "http://konncect-env.eba-bgy9kheh.ap-south-1.elasticbeanstalk.com",
+    //         "https://konnect-odr1.onrender.com:10000",
+    //         "https://konnect-odr1.onrender.com",
+    //         "http://localhost:8000",
+    //         "http://127.0.0.1:8000"
+    //     ],
+    //     methods: ["GET", "POST"],
+    // }
 })
 
 chatServerListener(io);
