@@ -53,6 +53,6 @@ const production = {
   jwt_secret_key: process.env.JWT_SECRET_KEY,
 };
 
-// module.exports = development;
-module.exports = production;
+module.exports = development;
+// module.exports = production;
 
