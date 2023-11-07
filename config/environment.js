@@ -1,12 +1,10 @@
-const { http } = require("winston");
-
 // Require and configure dotenv to load environment variables from .env file
 require("dotenv").config();
 
 const development = {
   name: "development",
-  REDIS_HOST: "localhost",
-  REDIS_PORT: 6379,
+  // REDIS_HOST: "localhost",
+  // REDIS_PORT: 6379,
   MONGO_URL: process.env.MONGO_URL,
   assets_path: process.env.ASSETS_PATH || "./assets",
   session_cookie_key: process.env.SESSION_COOKIE_KEY || "change",
@@ -31,8 +29,8 @@ const development = {
 const production = {
   name: process.env.NODE_ENV || "production",
   PORT: process.env.PORT || 8080,
-  REDIS_HOST: process.env.REDIS_HOST,
-  REDIS_PORT: process.env.REDIS_PORT,
+  // REDIS_HOST: process.env.REDIS_HOST,
+  // REDIS_PORT: process.env.REDIS_PORT,
   MONGO_URL: process.env.MONGO_URL,
   assets_path: process.env.ASSETS_PATH || "./assets",
   session_cookie_key: process.env.SESSION_COOKIE_KEY || "change",
