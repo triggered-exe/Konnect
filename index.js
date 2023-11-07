@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
-const http = require('http');
-const server = http.createServer(app);
+const serverless = require('serverless-http');
 const env = require("./config/environment");
 const PORT = env.PORT || 8000;
 const cookieParser = require('cookie-parser');
@@ -11,7 +10,6 @@ const passport = require("passport");
 const passportLocal = require("./config/passport-local-strategy.js");
 const passportJWT = require("./config/passport-jwt-strategy.js");
 const passportGoogle = require("./config/passport-google-oauth2-strategy.js");
-const path = require("path");
 const { Server } = require('socket.io');
 const {chatServerListener} = require("./config/chat_server_listener.js");
 
@@ -106,3 +104,5 @@ const io = new Server(expressServer, {
 })
 
 chatServerListener(io);
+
+module.exports.handler = serverless(app);
