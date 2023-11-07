@@ -30,7 +30,7 @@
   "description": "A social media web application",
   "main": "index.js",
   "scripts": {
-    "build": "netlify-lambda build express",
+    "build": "netlify-lambda build index",
     "start": "node index.js",
     "dev": "nodemon index.js"
   },
