@@ -88,7 +88,6 @@ const expressServer = app.listen(PORT, (err) => {
 
 
 //  setup the char server using socket.io
-
 const io = new Server(expressServer, {
     // cors: {
     //     origin:[
@@ -104,5 +103,7 @@ const io = new Server(expressServer, {
 })
 
 chatServerListener(io);
+
+app.use('/.netlify/functions/api', express.Router());
 
 module.exports.handler = serverless(app);

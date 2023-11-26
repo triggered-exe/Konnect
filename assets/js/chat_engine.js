@@ -14,7 +14,6 @@ class ChatEngine{
         }
     }
 
-
     connectionHandler(){
         let self = this;
         this.socket.on("connect_error", (err) => {
